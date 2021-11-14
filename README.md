@@ -3,7 +3,7 @@
 
 Generate a comprehensive view of an Apex debug log. This view spotlights the recursive patterns and the useless SOQL performed in a transaction to optimize more easily the Apex triggers.
 
-# Usage
+## Usage
 
 The tool is available here: https://sfdc-log.herokuapp.com/
 

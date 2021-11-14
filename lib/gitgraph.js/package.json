@@ -1,0 +1,88 @@
+{
+  "_from": "gitgraph.js",
+  "_id": "gitgraph.js@1.11.4",
+  "_inBundle": false,
+  "_integrity": "sha512-dST+TPbuaE3oa4uz1zDe629vYkK7zEcPPy6/nQlW06Y+HQCA4cZuFOLzMCZsLZh9N++Qk6dzRqgrjKkNC+U3lg==",
+  "_location": "/gitgraph.js",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "gitgraph.js",
+    "name": "gitgraph.js",
+    "escapedName": "gitgraph.js",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/gitgraph.js/-/gitgraph.js-1.11.4.tgz",
+  "_shasum": "c209cd073b63b563b88c4c933f71ebc0d7cf2348",
+  "_spec": "gitgraph.js",
+  "_where": "/Users/gavignon/Desktop/ParseLog",
+  "author": {
+    "name": "Nicolas Carlo",
+    "email": "nicolascarlo.espeon@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/nicoespeon/gitgraph.js/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Fabien Bernard",
+      "email": "fabien0102@gmail.com"
+    }
+  ],
+  "dependencies": {},
+  "deprecated": false,
+  "description": "A JavaScript library to draw pretty git graphs in the browser",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-concat": "~0.5.0",
+    "grunt-contrib-copy": "~0.6.0",
+    "grunt-contrib-jasmine": "~0.5.1",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-uglify": "~0.6.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-express": "~1.4.1",
+    "grunt-jsdoc": "2.1.0",
+    "grunt-open": "~0.2.2",
+    "grunt-string-replace": "~1.0.0",
+    "jest": "^19.0.2",
+    "jsdoc-json": "^2.0.0",
+    "load-grunt-tasks": "~0.6.0",
+    "typescript": "^2.2.2",
+    "typescript-formatter": "^5.1.2"
+  },
+  "homepage": "https://github.com/nicoespeon/gitgraph.js#readme",
+  "keywords": [
+    "git",
+    "graph",
+    "javascript"
+  ],
+  "license": "MIT",
+  "main": "./src/gitgraph.js",
+  "name": "gitgraph.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicoespeon/gitgraph.js.git"
+  },
+  "scripts": {
+    "dist": "grunt dist",
+    "doc": "grunt doc",
+    "release": "grunt release",
+    "start": "grunt server",
+    "test": "npm run test:scripts && npm run test:src",
+    "test:scripts": "jest scripts",
+    "test:src": "grunt test",
+    "tsd": "grunt tsd"
+  },
+  "types": "./build/gitgraph.d.ts",
+  "version": "1.11.4"
+}

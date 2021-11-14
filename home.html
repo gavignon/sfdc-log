@@ -1,0 +1,129 @@
+<html>
+  <head>
+    <script src="lib/gitgraph.js/build/gitgraph.js"></script>
+    <script src="index.js"></script>
+    <title>SFDC Log</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="lib/gitgraph.js/build/gitgraph.css" />
+    <link rel="stylesheet" type="text/css" href="lib/salesforce-lightning-design-system/assets/styles/salesforce-lightning-design-system.css" />
+  </head>
+<body>
+  <div style="height: 60px;border-bottom: 1px solid #d8dde6;line-height: 60px;font-weight: bold;">
+    <img src="logo.png" style="float: left;width: 50px;margin-top: 13px;margin-left: 20px;margin-right: 20px;" />
+    <h1 style="display: inline-block;">Apex Log Trace</h1>
+    <a href="mailto:pro@gilavignon.com" style="float: right;margin-right: 20px;font-weight: normal;">Contact</a>
+  </div>
+
+  <div class="content" style="padding:20px;">
+    <div id="spinner" style="display:none;background-color: rgba(0,0,0,0.2);height: 100%;width: 100%;position: absolute;z-index: 100;top: 0;left: 0;">
+      <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+        <span class="slds-assistive-text">Loading</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+      </div>
+    </div>
+
+    <div class="slds-form-element">
+      <label class="slds-form-element__label" for="textarea-id-01">Debug logs</label>
+      <div class="slds-form-element__control">
+        <textarea id="textarea-id-01" rows="4" class="slds-textarea" placeholder="Paste here" ng-model="logs"></textarea>
+      </div>
+      <div><p>
+        <br/>
+        <div class="slds-form-element">
+          <span class="slds-form-element__label" id="file-selector-primary-label-101">Attachment</span>
+          <div class="slds-form-element__control">
+            <div class="slds-file-selector slds-file-selector_files">
+              <div class="slds-file-selector__dropzone">
+                <input type="file" class="slds-file-selector__input slds-assistive-text" id="fileInput" aria-labelledby="file-selector-primary-label-101 file-selector-secondary-label102" />
+                <label class="slds-file-selector__body" for="fileInput" id="file-selector-secondary-label102">
+                  <span class="slds-file-selector__button slds-button slds-button_neutral">
+                  <!-- <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                  <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#upload"></use> -->
+                  </svg>Upload Files</span>
+
+                  <span id="fileName" class="slds-file-selector__text slds-medium-show" style="margin:0;"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/>
+      </p></div>
+    </div>
+
+    <button class="slds-button slds-button_brand" id="analyze" style="margin-top: 10px;" onclick="parseLog()">Analyze !</button>
+    <div style="margin-bottom: 20px;height: 80px;">
+      <table style="float: right;font-size: 10px;width: 300px;">
+        <tr style="border-bottom:1px solid #d8dde6;">
+          <td colspan="4" style="text-align:center;font-weight:bold;padding-bottom: 5px;">LEGEND</td>
+        </tr>
+        <tr>
+          <td style="padding-top:5px;">
+            <div style="width:8px;height:8px;border-radius:10px;border:2px solid black;background-color:black;display:inline-block;"></div>
+          </td>
+          <td style="padding-top:5px;">DML</td>
+          <td style="padding-top:5px;">
+            <div style="width:8px;height:8px;border-radius:10px;border:1px solid rgba(158,158,158,0.8);background-color:rgba(158,158,158,0.2);display:inline-block;"></div>
+          </td>
+          <td style="padding-top:5px;">SOQL (without result)</td>
+        </tr>
+        <tr>
+          <td>
+            <div style="width:8px;height:8px;border-radius:10px;border:1px solid green;background-color:green;display:inline-block;"></div>
+          </td>
+          <td>UNIT STARTED</td>
+          <td>
+            <div style="width:8px;height:8px;border-radius:10px;border:1px solid black;background-color:white;display:inline-block;"></div>
+          </td>
+          <td>SOQL (with result)</td>
+        </tr>
+        <tr>
+          <td>
+            <div style="width:8px;height:8px;border-radius:10px;border:1px solid red;background-color:red;display:inline-block;"></div>
+          </td>
+          <td>UNIT FINISHED</td>
+        </tr>
+      </table>
+
+      <table style="float: right;font-size: 10px;width: 420px;margin-right: 40px;">
+        <tr style="border-bottom:1px solid #d8dde6;">
+          <td colspan="6" style="text-align:center;font-weight:bold;padding-bottom: 5px;">OPTIMIZED DEBUG LEVEL</td>
+        </tr>
+        <tr>
+          <td style="padding-top:5px;"><b>Database</b></td>
+          <td style="padding-top:5px;">INFO</td>
+          <td style="padding-top:5px;"><b>Callouts</b></td>
+          <td style="padding-top:5px;">NONE</td>
+          <td style="padding-top:5px;"><b>Visualforce</b></td>
+          <td style="padding-top:5px;">NONE</td>
+        </tr>
+        <tr>
+          <td><b>Workflow</b></td>
+          <td>NONE</td>
+          <td><b>Apex Code</b></td>
+          <td>WARN</td>
+          <td><b>System</b></td>
+          <td>NONE</td>
+        </tr>
+        <tr>
+          <td><b>Validation</b></td>
+          <td>NONE</td>
+          <td><b>Apex Profiling</b></td>
+          <td>FINEST (or NONE)</td>
+          <td><b>Wave</b></td>
+          <td>NONE</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <br/>
+  <div id="canvas" style="overflow:auto;padding-right:200px;"><canvas id="gitGraph"></canvas></div>
+  <div>
+    <ul class="tree" id="treeroot"></ul>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>

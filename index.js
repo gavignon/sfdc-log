@@ -325,7 +325,7 @@ function genGraph(logs){
         if(lineNum != 'EXTERNAL')
           newPoint.lineNum = lineNum;
 
-        newPoint.opDetails =  ((logParts[4])?logParts[4]:logParts[3]).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        newPoint.opDetails =  ((logParts[4])?logParts[4]:logParts[3]?logParts[3]:logParts[2]).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
         if(opType == 'SOQL_EXECUTE_BEGIN'){
           newPoint.rows = logParts[3].replace('Rows:', '').replace('Aggregations:', '');

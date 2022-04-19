@@ -456,7 +456,7 @@ function parseLog() {
   document.getElementById('spinner').style.display = 'none';
 }
 
-(function() {
+window.onload = function() {
 
   var fileInput = document.getElementById('fileInput');
   fileInput.addEventListener('change', function(e) {
@@ -486,4 +486,4 @@ function parseLog() {
     // redraw();
   }
 
-})();
+}
